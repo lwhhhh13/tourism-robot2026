@@ -1,0 +1,61 @@
+world_frame: world
+head_camera_optical_frame: head_camera_color_optical_frame
+
+topics:
+  head_rgb: /head_camera/color/image_raw
+  head_depth: /head_camera/aligned_depth_to_color/image_raw
+  head_camera_info: /head_camera/color/camera_info
+  left_rgb: /left_camera/color/image_raw
+  right_rgb: /right_camera/color/image_raw
+  instruction: /material/instruction
+  detections: /material/detections
+  scene_state: /material/perception/scene_state
+  result_image: /material/perception/result_image
+  wrist_alignment: /material/perception/wrist_alignment
+  left_result_image: /material/perception/left_result_image
+  right_result_image: /material/perception/right_result_image
+
+detector:
+  input_color_order: BGR
+  min_area_px: 500
+  max_area_fraction: 0.60
+  min_fill_ratio: 0.30
+  morphology:
+    open_kernel: 3
+    close_kernel: 7
+  hsv_ranges:
+    pink:
+      ranges:
+        - lower: [145, 70, 70]
+          upper: [179, 255, 255]
+    yellow:
+      ranges:
+        - lower: [18, 80, 80]
+          upper: [42, 255, 255]
+    brown:
+      ranges:
+        - lower: [3, 60, 25]
+          upper: [22, 255, 180]
+
+reference_detector:
+  enabled: true
+  input_color_order: BGR
+  lower_hsv: [0, 0, 175]
+  upper_hsv: [179, 70, 255]
+  min_area_px: 2500
+  max_area_fraction: 0.35
+  cube_max_aspect: 1.35
+
+depth:
+  encoding: mono16
+  unit: millimeter
+  scale: 0.001
+  min_m: 0.10
+  max_m: 5.0
+  patch_radius_px: 5
+
+synchronization:
+  max_rgb_depth_delta_s: 0.10
+
+wrist_refinement:
+  tolerance_px: 18

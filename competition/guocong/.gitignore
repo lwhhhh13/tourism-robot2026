@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+recordings/*
+!recordings/.gitkeep
+failure_cases/perception/*
+!failure_cases/perception/.gitkeep
+perception_metrics.json
+detections.png
